@@ -6,8 +6,8 @@
 		<mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
 		<mt-field label="密码" placeholder="请输入密码" v-model="password" type="password"></mt-field>
 		<div class="btn_p">
-			<mt-button type="primary" class="register_btn" @click="register">登录</mt-button>
-			<mt-button type="primary" class="register_btn" @click="logout">登出</mt-button>
+			<mt-button type="primary" class="btn" @click="login">登录</mt-button>
+			<mt-button type="primary" class="btn register_btn" @click="register">注册</mt-button>
 		</div>
 	</div>
 </template>
@@ -29,12 +29,10 @@
 			if(this.$route.query.uname) this.username = this.$route.query.uname
 		},
 		methods:{
-			logout(){
-				this.axios.post(this.$serverUrl+'/logout','token='+this.$cookies.get('token')).then(res=>{
-					console.log(res)
-				})
-			},
 			register(){
+				this.$router.push('/register')
+			},
+			login(){
 				if(this.btnLock == true){
 					return
 				}else if(!/^[A-Za-z0-9]{4,16}$/.test(this.username)){
@@ -59,7 +57,7 @@
 						else if(loginMsg.data.code == 200){
 							Toast('登陆成功')
 							this.$cookies.set("token", loginMsg.data.token)
-							console.log(this.$cookies.get('token'))
+							this.$router.push('/employeesList')
 						}else{
 							Toast('未知错误')
 							console.log('未知错误')
@@ -83,7 +81,10 @@
 	.btn_p{
 		padding: 1rem;
 	}
-	.register_btn{
+	.btn{
 		width: 100%;
+	}
+	.register_btn{
+		margin-top: 1rem;
 	}
 </style>

@@ -1,0 +1,4 @@
+const $serverUrl = ''
+export{
+	$serverUrl
+}

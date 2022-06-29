@@ -23,7 +23,7 @@
 
 <script>
 	import {
-		Toast,MessageBox 
+		Toast,MessageBox,Indicator
 	} from 'mint-ui';
 	export default {
 		name: 'HomeView',
@@ -62,6 +62,7 @@
 				}else if(this.btnLock){
 					return
 				}
+				Indicator.open()
 				this.btnLock = true
 				let formData = new FormData();
 				formData.append('imgData',pic.files[0])
@@ -91,8 +92,10 @@
 						pic.value=''
 					}
 					this.btnLock = false
+					Indicator.close()
 				},err=>{
 					this.btnLock = false
+					Indicator.close()
 					Toast('网络开小差了')
 					throw err
 				})

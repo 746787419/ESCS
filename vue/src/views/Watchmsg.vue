@@ -1,6 +1,8 @@
 <template>
 	<div v-title data-title="赛特物业防控统计">
-		<mt-header title="今日防控统计"></mt-header>
+		<mt-header title="今日防控统计">
+			<mt-button slot="right" type="default" @click="toConfig">设置</mt-button>
+		</mt-header>
 		<mt-navbar v-model="classChoose">
 		  <mt-tab-item v-for="(val,index) of classList" :id='"tab_item_"+val.id' :key="index">{{val.name}}</mt-tab-item>
 		</mt-navbar>
@@ -42,6 +44,9 @@
 			}
 		},
 		methods:{
+			toConfig(){
+				this.$router.push('/EmployeesList').then(res=>{},err=>{})
+			},
 			initItemlist(cid){
 				this.itemlist = []
 				this.axios.get(this.$serverUrl+`/get_staff_list_today?cid=${cid}`).then(res=>{

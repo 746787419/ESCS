@@ -5,6 +5,9 @@ import Watchmsg from '../views/Watchmsg.vue'
 import register from '../views/register.vue'
 import Login from '../views/Login.vue'
 import EmployeesList from '../views/EmployeesList.vue'
+import axios from 'axios'
+import {$serverUrl} from '../my_config'
+import {Toast} from 'mint-ui'
 
 Vue.use(VueRouter)
 
@@ -28,7 +31,18 @@ const routes = [
   },{
 	  path:'/employeesList',
 	  name:"EmployeesList",
-	  component:EmployeesList
+	  component:EmployeesList,
+	  beforeEnter:(to,from,next)=>{
+		  axios.post($serverUrl+'/tokenTest','token='+Vue.$cookies.get('token')).then(res=>{
+			  // console.log(res)
+			  if(res.data.isLogin){
+			  		next()
+			  }else{
+					Toast('请先登录')
+			  		next('/login')
+			  }
+		  })
+	  }
   }
 ]
 

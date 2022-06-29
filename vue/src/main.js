@@ -9,6 +9,7 @@ import jsMd5 from 'js-md5'
 import 'mint-ui/lib/style.css'
 import './assets/clear.css'
 import VueCookies from 'vue-cookies'
+import {$serverUrl} from './my_config'
 
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
@@ -21,7 +22,7 @@ Vue.directive('title', {
     document.title = el.dataset.title
   }
 })
-Vue.prototype.$serverUrl = 'http://localhost:8086'
+Vue.prototype.$serverUrl = $serverUrl
 Vue.prototype.$jsEncrypt = JSEncrypt; 
 Vue.prototype.$md5 = jsMd5;
 
